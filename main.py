@@ -272,6 +272,51 @@ class BTree:
             else:
                 self._insert_nonfull(root, key, value)
 
+    def _reload_node(self, node: BTreeNode) -> BTreeNode:
+        # Re-read node from disk (ensures no stale data)
+        return self.idx_file.read_node(node.block_id)
+
+    def print_all(self):
+        # In-order traversal
+        if self.idx_file.root_id == 0:
+            return
+        self._print_node(self.idx_file.root_id)
+
+    def _print_node(self, block_id):
+        node = self.idx_file.read_node(block_id)
+        for i in range(node.n):
+            if node.children[i] != 0:
+                self._print_node(node.children[i])
+            print(f"{node.keys[i]} {node.values[i]}")
+        if node.children[node.n] != 0:
+            self._print_node(node.children[node.n])
+
+    def extract_all(self, filename):
+        if os.path.exists(filename):
+            ans = input(f"File {filename} exists. Overwrite? (y/n) ")
+            if ans.lower() != 'y':
+                return
+        pairs = self._inorder_traversal()
+        with open(filename, 'w') as f:
+            for k,v in pairs:
+                f.write(f"{k},{v}\n")
+
+    def _inorder_traversal(self):
+        pairs = []
+        if self.idx_file.root_id == 0:
+            return pairs
+        self._inorder_node(self.idx_file.root_id, pairs)
+        return pairs
+
+    def _inorder_node(self, block_id, pairs):
+        node = self.idx_file.read_node(block_id)
+        for i in range(node.n):
+            if node.children[i] != 0:
+                self._inorder_node(node.children[i], pairs)
+            pairs.append((node.keys[i], node.values[i]))
+        if node.children[node.n] != 0:
+            self._inorder_node(node.children[node.n], pairs)
+
 def main():
     idx_file = None
     btree = None

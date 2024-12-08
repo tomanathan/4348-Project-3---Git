@@ -98,3 +98,10 @@ writing this while im still working on the tasks i was mentioning in the previou
 ## log entry 16
 
 finished up the writenode, readnode, and allocatenode functions, as i planned, and also created a few helper functions for that, im still working but i think im supposed to be doing this while i work as well. it's a good thing i had to learn b+ trees for database systems, otherwise this would have definitely been more difficult. i only have the print function, and the overall menu system in the main function to deal with, and ill finally be done with this. the plan is to keep working, and be done with everything, as a first run through, then start with any debugging i need to do, although im hoping that doing everything in such a sequential, modular manner reduces the amout of pain i have to go through to make sure that everything works properly and there arent any bugs. anyway, continuing onwards to the main function and print.
+
+
+## 2024-12-08 3:56 PM
+
+## log entry 17
+
+finally finsihed with the coding of everything except the main method, going to take a break for a few hours, then after that im going to do the main function as well as debugging, i am very ready to get this done. I didnt encounter too many issues while doing this part, this section of coding mostly consisted of me implementing the logic for printing, i meant to be finished with the main function as well by now, but im going to have to finish it while i do my debugging. currently not facing too many issues, the conditions for each task are easy to meet based on an in depth understanding of how b trees work (THANKS DSA) and im able to execute them without too much issue. time to take this break, study for other classes, then get back to it to finish my main function and do all the debugging needed to make a finished product.
