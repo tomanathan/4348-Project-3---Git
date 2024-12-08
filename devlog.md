@@ -105,3 +105,11 @@ finished up the writenode, readnode, and allocatenode functions, as i planned, a
 ## log entry 17
 
 finally finsihed with the coding of everything except the main method, going to take a break for a few hours, then after that im going to do the main function as well as debugging, i am very ready to get this done. I didnt encounter too many issues while doing this part, this section of coding mostly consisted of me implementing the logic for printing, i meant to be finished with the main function as well by now, but im going to have to finish it while i do my debugging. currently not facing too many issues, the conditions for each task are easy to meet based on an in depth understanding of how b trees work (THANKS DSA) and im able to execute them without too much issue. time to take this break, study for other classes, then get back to it to finish my main function and do all the debugging needed to make a finished product. I also forgot to include the fact that i implemented the traversal, which is needed for the search process.
+
+## 2024-12-08 4:20 PM
+
+## log entry 18
+
+Getting back to work now, plan is to implement the main function, reorganize the entire thing so its more readable, and do some debugging to make sure its all going to work out. im going to organize the main function in the most basic simple way possible, literally going to be a while loop wiht a bunch of else ifs, i want to keep this simple and modular, i havent really done a lot of programming this way before, and its helping a lot. i feel like im avoiding a lot of issues that come with coding in one "session" like it being hard to understand and debug later on. i also caught myself reading this log so i could see what i had done so thats interesting. either way, not much to comment on, im going to make the main function using a while loop for the menu, and nested elifs for each individual command. i already have all the basic parts made so just got to tie them together. hopefully debugging isnt too bad, and i make it out of this soon.
+
+
