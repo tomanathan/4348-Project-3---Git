@@ -19,3 +19,10 @@ i've been studying for my finals all day, but its time to get started on this. I
 ## Log Entry 3
 
 just finished the implementation i was going to do before, it wasnt very hard. i was mostly just trying to take the parameters tying the entire thing together from the instructions and putting it into code. I didnt really have problems, and im going to take a 5 minute break before starting to code again. nothing really happened, we are just beginning, so i accomplished everything i wanted to get done! next, i want to read the header of the index file, so thats going to be the next part of my implementation
+
+
+## 2024-12-07 11:52 PM
+
+## Log Entry 4
+
+ok its time for me to start coding again. going back to what i was expecting to do before, i want to write some code to read the headers. that's about it honestly, i havent had much time to think in between the last session and this one, but this is a pretty boring, simple next step so just time to do it i guess.
