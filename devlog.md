@@ -75,3 +75,8 @@ Ive been working for a few horus now, this has definitely been the most challegn
 
 got back with breakfast in hand, and going to do the easy parts while i eat. going to try and implement the create function, which should be just makign and using the main function to run the right set of commands. this is the first part im doing of the "frontend" of this system, but again, shouldnt be too hard. havent had many insights, this is just putting pieces together.
 
+## 2024-12-08 12:16 PM
+
+## log entry 12
+
+implementing the main function, as well as the create command, wasnt hard at all, happy with how it went, i guess. there's now a clear framework for how im going to implement the rest of the functions, just one by one, so planning on doing those sequentially. in terms of this session, it was super straight forward. going to stick to nested if statements for this, because im too tired to work with anything else right now, but shouldnt cause any issues with this simple menu. plan for the next "session" is to just work on another function, not sure which one yet, but ill decide when i get there. going to have another snack, and ill be back in a few minutes.

@@ -233,3 +233,36 @@ class BTree:
                 self.idx_file.sync_header()
             else:
                 self._insert_nonfull(root, key, value)
+
+def main():
+    idx_file = None
+    btree = None
+
+    def ensure_open():
+        if idx_file is None or not idx_file.is_open():
+            print("Error: No index file is open.")
+            return False
+        return True
+
+    while True:
+        print("Commands: create, open, insert, search, load, print, extract, quit")
+        cmd = input("Enter command: ").strip().lower()
+        if cmd == "quit":
+            if idx_file:
+                idx_file.close()
+            break
+        elif cmd == "create":
+            fname = input("Enter new index file name: ").strip()
+            if os.path.exists(fname):
+                ans = input(f"File {fname} exists. Overwrite? (y/n) ")
+                if ans.lower() != 'y':
+                    continue
+            # create file
+            if idx_file:
+                idx_file.close()
+            idx_file = IndexFile(fname)
+            idx_file.open_create()
+            idx_file.root_id = 0
+            idx_file.next_block_id = 1
+            idx_file.write_header()
+            btree = BTree(idx_file)
