@@ -57,3 +57,10 @@ time to start working again, i feel like im messing up the git thing somehow, im
 ## Log Entry 9
 
 ok got the search function done, this was a little annoying, i had a few issues with indexing child pointers during the traversal of the tree, but at the end of the day i got it to work, and there arent any issues right now. the current time is almost 1 am, so im going to go to sleep and keep working on this in the morning. I dont think this is going to be so bad after all. but anyway, going to sleep on the thoughts, the next few steps are to implement splitting of nodes, which im going to think about in my dreams. goodnight log
+
+## 2024-12-08 9:03 AM
+
+## log entry 10
+
+ok, i had the chance to sleep, and was thinking about how i was going to implement the node splitting/insertion. there are basically two cases i have to consider with this, and they are inserting a node when there is room to insert another node, so basically inserting into a non full node, and the case of when i am inserting into a node that is already full, and i have to deal with moving the  middle key to the parent and splitting the node. this seems challenging, but going to give it a shot and see how it goes.
+
