@@ -13,3 +13,9 @@ im going to commit this log, then begin work on just getting a rough idea of the
 ## Log Entry 2
 
 i've been studying for my finals all day, but its time to get started on this. I've been thinking about this project all day, and i now have an idea on how im going to start implementing it. this session, im going to set up the BTreeNode class, which should have methods to serialize and deserialize, while sticking to the structure required for this.
+
+## 2024-12-07 11:41 PM
+
+## Log Entry 3
+
+just finished the implementation i was going to do before, it wasnt very hard. i was mostly just trying to take the parameters tying the entire thing together from the instructions and putting it into code. I didnt really have problems, and im going to take a 5 minute break before starting to code again. nothing really happened, we are just beginning, so i accomplished everything i wanted to get done! next, i want to read the header of the index file, so thats going to be the next part of my implementation
