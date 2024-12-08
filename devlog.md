@@ -80,3 +80,9 @@ got back with breakfast in hand, and going to do the easy parts while i eat. goi
 ## log entry 12
 
 implementing the main function, as well as the create command, wasnt hard at all, happy with how it went, i guess. there's now a clear framework for how im going to implement the rest of the functions, just one by one, so planning on doing those sequentially. in terms of this session, it was super straight forward. going to stick to nested if statements for this, because im too tired to work with anything else right now, but shouldnt cause any issues with this simple menu. plan for the next "session" is to just work on another function, not sure which one yet, but ill decide when i get there. going to have another snack, and ill be back in a few minutes.
+
+## 2024-12-08 1:26 PM
+
+## log entry 12
+
+ok that break was longer than a few minutes, and if im being honest, im running out of time to take these breaks, considering that this project is due tonight, even with the extension. this is going to be another long coding session, my plan is essentially threefold. i have to complete the logic for read/write/allocate, i have to do the logic for printing, and anything that goes with that, and i need to do any traversal necessary here. the final step after that is to finish up the main function, putting everything together. im going to work for a few hours, and get as much done as possible, then check back up on this log.
