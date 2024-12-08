@@ -38,3 +38,9 @@ well, i was able to completely implement the index reading thing, wasnt too bad,
 ## Log Entry 6 
 
 time to start working again, the goal of this session is to dynamically allocate notes, so that the next block id is updated, and is synced in the header as well. this should ideally not be that bad? but i guess we shall see. time to code this out, lets see how it does
+
+## 2024-12-08 12:35 AM
+
+## Log Entry 7
+
+this absolutely should not have taken so long, but got a bit distracted. the implementation was quite simple, and im all done yay. the next thing ive got to do is add the implementation for the search. this is one of the core functions of the assignment, so lets go. didnt really hit any problems, i just took too long because i got distracted. going to do one more session tonight before i sleep, and finish this up tomorrow, hoping i dont lose points for doing this all in one day, technically. ok, signing off for a short break, and the next session is the search.

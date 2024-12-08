@@ -37,6 +37,12 @@ class BTreeNode:
         return node
 
 class IndexFile:
+    def allocate_node(self) -> BTreeNode:
+        node = BTreeNode(block_id=self.next_block_id)
+        self.next_block_id += 1
+        self.write_header()
+        return node
+
     def __init__(self, filename):
         self.filename = filename
         self.file = None
