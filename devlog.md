@@ -44,3 +44,11 @@ time to start working again, the goal of this session is to dynamically allocate
 ## Log Entry 7
 
 this absolutely should not have taken so long, but got a bit distracted. the implementation was quite simple, and im all done yay. the next thing ive got to do is add the implementation for the search. this is one of the core functions of the assignment, so lets go. didnt really hit any problems, i just took too long because i got distracted. going to do one more session tonight before i sleep, and finish this up tomorrow, hoping i dont lose points for doing this all in one day, technically. ok, signing off for a short break, and the next session is the search.
+
+## 2024-12-08 12:45 AM
+
+## Log Entry 8
+
+time to start working again, i feel like im messing up the git thing somehow, im so exhausted i feel like ive missed a commit or two somewhere along the line, for right now though, im fine, not many thoughts since before, but going to try and make this search functionality a reality. gonna just jump right into it.
+
+
