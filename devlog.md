@@ -26,3 +26,9 @@ just finished the implementation i was going to do before, it wasnt very hard. i
 ## Log Entry 4
 
 ok its time for me to start coding again. going back to what i was expecting to do before, i want to write some code to read the headers. that's about it honestly, i havent had much time to think in between the last session and this one, but this is a pretty boring, simple next step so just time to do it i guess.
+
+## 2024-12-08 12:10 AM
+
+## Log Entry 5
+
+well, i was able to completely implement the index reading thing, wasnt too bad, i havent had any thoughts about this since the last session, so thats great. i didnt really face any problems, to be honest this was equally as easy to implement, not really at the logic part yet, just setting up infrastructure, so its fast and easy. I ACCOMPLISHED MY GOAL YAY!!! next session, after my little break, i am going to figure out how to dynamically allocate nodes. thats the plan, ill think about it and get back to this log when i start developing yay

@@ -35,3 +35,26 @@ class BTreeNode:
         node.values = [int.from_bytes(block[offset + (i+19)*8:offset + (i+20)*8], 'big') for i in range(19)]
         node.children = [int.from_bytes(block[offset + (i+38)*8:offset + (i+39)*8], 'big') for i in range(20)]
         return node
+
+class IndexFile:
+    def __init__(self, filename):
+        self.filename = filename
+        self.file = None
+        self.root_id = 0
+        self.next_block_id = 1
+
+    def write_header(self):
+        block = bytearray(512)
+        block[0:8] = b"4337PRJ3"
+        block[8:16] = self.root_id.to_bytes(8, 'big')
+        block[16:24] = self.next_block_id.to_bytes(8, 'big')
+        self.file.seek(0)
+        self.file.write(block)
+
+    def read_header(self):
+        self.file.seek(0)
+        block = self.file.read(512)
+        if len(block) < 512 or block[0:8] != b"4337PRJ3":
+            raise ValueError("Invalid header.")
+        self.root_id = int.from_bytes(block[8:16], 'big')
+        self.next_block_id = int.from_bytes(block[16:24], 'big')
