@@ -82,6 +82,21 @@ class IndexFile:
         self.root_id = 0
         self.next_block_id = 1
 
+    def open_readwrite(self):
+        self.file = open(self.filename, 'r+b')
+
+    def open_readonly(self):
+        self.file = open(self.filename, 'rb')
+
+    def open_create(self):
+        self.file = open(self.filename, 'w+b')
+
+    def close(self):
+        if self.file:
+            self.file.close()
+            self.file = None
+
+    
     def write_header(self):
         block = bytearray(BLOCK_SIZE)
         # Magic number

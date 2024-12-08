@@ -86,3 +86,9 @@ implementing the main function, as well as the create command, wasnt hard at all
 ## log entry 14
 
 ok that break was longer than a few minutes, and if im being honest, im running out of time to take these breaks, considering that this project is due tonight, even with the extension. this is going to be another long coding session, my plan is essentially threefold. i have to complete the logic for read/write/allocate, i have to do the logic for printing, and anything that goes with that, and i need to do any traversal necessary here. the final step after that is to finish up the main function, putting everything together. im going to work for a few hours, and get as much done as possible, then check back up on this log.
+
+## 2024-12-08 2:31 PM
+
+## log entry 15
+
+writing this while im still working on the tasks i was mentioning in the previous log, but for right now, ive managed to implement functionality for different cases for the readwrite, readonly, and open to create. 
