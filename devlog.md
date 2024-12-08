@@ -68,3 +68,10 @@ ok, i had the chance to sleep, and was thinking about how i was going to impleme
 
 ## log entry 11
 Ive been working for a few horus now, this has definitely been the most challegning parts of the entire project, i first did some basic changes to make the system better, including adding a constants section, instead of hardcoding in numbers. it was getting hard to keep track of what was what, so that was necessary. i also changed up the Btree class, adding in the functionality of inserting a node when its full, as well as when theres room. this is probably the hardest part of the project, so glad its finally done. this wasn't technically part of the plan, but it fit in the same section in my head, so got it done. granted, im going to do the majority of my debugging later, but for now, it should be ok. im still fleshing this out based on the plan i wrote out, so its going well so far. i accomplished my goal for the session, and for the next session, i think im going to do an easy section, which is just the create command. this should be super easy since i already have the insert and whatnot, just need to get it done. anyway, going to eat breakfast and get back to work.
+
+## 2024-12-08 11:57 AM
+
+## log entry 12
+
+got back with breakfast in hand, and going to do the easy parts while i eat. going to try and implement the create function, which should be just makign and using the main function to run the right set of commands. this is the first part im doing of the "frontend" of this system, but again, shouldnt be too hard. havent had many insights, this is just putting pieces together.
+
