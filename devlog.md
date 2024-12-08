@@ -92,3 +92,9 @@ ok that break was longer than a few minutes, and if im being honest, im running 
 ## log entry 15
 
 writing this while im still working on the tasks i was mentioning in the previous log, but for right now, ive managed to implement functionality for different cases for the readwrite, readonly, and open to create. 
+
+## 2024-12-08 3:11 PM
+
+## log entry 16
+
+finished up the writenode, readnode, and allocatenode functions, as i planned, and also created a few helper functions for that, im still working but i think im supposed to be doing this while i work as well. it's a good thing i had to learn b+ trees for database systems, otherwise this would have definitely been more difficult. i only have the print function, and the overall menu system in the main function to deal with, and ill finally be done with this. the plan is to keep working, and be done with everything, as a first run through, then start with any debugging i need to do, although im hoping that doing everything in such a sequential, modular manner reduces the amout of pain i have to go through to make sure that everything works properly and there arent any bugs. anyway, continuing onwards to the main function and print.

@@ -96,7 +96,30 @@ class IndexFile:
             self.file.close()
             self.file = None
 
-    
+    def write_node(self, node: BTreeNode):
+        block = node.serialize()
+        self.file.seek(node.block_id * BLOCK_SIZE)
+        self.file.write(block)
+
+    def read_node(self, block_id: int) -> BTreeNode:
+        self.file.seek(block_id * BLOCK_SIZE)
+        block = self.file.read(BLOCK_SIZE)
+        if len(block) < BLOCK_SIZE:
+            raise IOError("Node block incomplete.")
+        return BTreeNode.deserialize(block)
+
+    def allocate_node(self) -> BTreeNode:
+        node = BTreeNode(block_id=self.next_block_id)
+        self.next_block_id += 1
+        self.write_header()
+        return node
+
+    def sync_header(self):
+        self.write_header()
+
+    def is_open(self):
+        return self.file is not None
+
     def write_header(self):
         block = bytearray(BLOCK_SIZE)
         # Magic number
