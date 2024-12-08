@@ -7,3 +7,9 @@ the plan first of all is to set up the git structure and start on a basic start 
 
 my understanding of the project right now is that I need to create software to create, read, and edit these index files containing b trees, and also to implement a search and load. 
 im going to commit this log, then begin work on just getting a rough idea of the structure of these b trees, and try to decode the sample.idx file so I can tell what's happening.
+
+## 2024-12-07 11:03 PM
+
+## Log Entry 2
+
+i've been studying for my finals all day, but its time to get started on this. I've been thinking about this project all day, and i now have an idea on how im going to start implementing it. this session, im going to set up the BTreeNode class, which should have methods to serialize and deserialize, while sticking to the structure required for this.
