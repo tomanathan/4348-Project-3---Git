@@ -32,3 +32,9 @@ ok its time for me to start coding again. going back to what i was expecting to 
 ## Log Entry 5
 
 well, i was able to completely implement the index reading thing, wasnt too bad, i havent had any thoughts about this since the last session, so thats great. i didnt really face any problems, to be honest this was equally as easy to implement, not really at the logic part yet, just setting up infrastructure, so its fast and easy. I ACCOMPLISHED MY GOAL YAY!!! next session, after my little break, i am going to figure out how to dynamically allocate nodes. thats the plan, ill think about it and get back to this log when i start developing yay
+
+## 2024-12-08 12:10 AM
+
+## Log Entry 6 
+
+time to start working again, the goal of this session is to dynamically allocate notes, so that the next block id is updated, and is synced in the header as well. this should ideally not be that bad? but i guess we shall see. time to code this out, lets see how it does
