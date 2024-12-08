@@ -52,3 +52,8 @@ this absolutely should not have taken so long, but got a bit distracted. the imp
 time to start working again, i feel like im messing up the git thing somehow, im so exhausted i feel like ive missed a commit or two somewhere along the line, for right now though, im fine, not many thoughts since before, but going to try and make this search functionality a reality. gonna just jump right into it.
 
 
+## 2024-12-08 12:58 AM
+
+## Log Entry 9
+
+ok got the search function done, this was a little annoying, i had a few issues with indexing child pointers during the traversal of the tree, but at the end of the day i got it to work, and there arent any issues right now. the current time is almost 1 am, so im going to go to sleep and keep working on this in the morning. I dont think this is going to be so bad after all. but anyway, going to sleep on the thoughts, the next few steps are to implement splitting of nodes, which im going to think about in my dreams. goodnight log

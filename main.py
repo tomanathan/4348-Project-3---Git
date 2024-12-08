@@ -1,3 +1,5 @@
+from bisect import bisect_left
+
 class BTreeNode:
     def __init__(self, block_id=0, parent_id=0, keys=None, values=None, children=None, n=0):
         self.block_id = block_id
@@ -64,3 +66,19 @@ class IndexFile:
             raise ValueError("Invalid header.")
         self.root_id = int.from_bytes(block[8:16], 'big')
         self.next_block_id = int.from_bytes(block[16:24], 'big')
+
+class BTree:
+    def search(self, key: int):
+        if self.idx_file.root_id == 0:
+            return None
+        return self._search_node(self.idx_file.root_id, key)
+
+    def _search_node(self, block_id, key):
+        node = self.idx_file.read_node(block_id)
+        keys = node.keys[:node.n]
+        i = bisect_left(keys, key)
+        if i < node.n and keys[i] == key:
+            return node.values[i]
+        if node.is_leaf():
+            return None
+        return self._search_node(node.children[i], key)
