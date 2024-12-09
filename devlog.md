@@ -113,3 +113,9 @@ finally finsihed with the coding of everything except the main method, going to 
 Getting back to work now, plan is to implement the main function, reorganize the entire thing so its more readable, and do some debugging to make sure its all going to work out. im going to organize the main function in the most basic simple way possible, literally going to be a while loop wiht a bunch of else ifs, i want to keep this simple and modular, i havent really done a lot of programming this way before, and its helping a lot. i feel like im avoiding a lot of issues that come with coding in one "session" like it being hard to understand and debug later on. i also caught myself reading this log so i could see what i had done so thats interesting. either way, not much to comment on, im going to make the main function using a while loop for the menu, and nested elifs for each individual command. i already have all the basic parts made so just got to tie them together. hopefully debugging isnt too bad, and i make it out of this soon.
 
 
+## 2024-12-08 8:01 PM
+
+## log entry 19
+
+finally done with everything, the debugging wasnt too bad at all, I wanted to make sure everything worked right, and it does seem to. I ended up moving things around a bit, and making sure that it was readable and went smoothly. i took a few breaks in between this session, but forgot to log, im hoping thats ok
+didnt have many thoughts about it, and it turned out just as i wanted. this session, i filled out the main function, and just did some reorganization and debugging. it all worked out fine, i'm very happy with the result, and i hope you are too, Mr. Grader. this project was super interesting, and i feel like my experience with B trees helped a lot. this kind of actual documentation and modular process was new to me, and it helped keep my thoughts straight, and i think improved the quality of my solution.

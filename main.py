@@ -2,12 +2,14 @@ import os
 import sys
 from bisect import bisect_left
 
-
+# Constants
 BLOCK_SIZE = 512
 MAGIC_NUMBER = b"4337PRJ3"
 T = 10  # minimal degree
 MAX_KEYS = 2 * T - 1  # 19
 MAX_CHILDREN = 2 * T  # 20
+
+
 class BTreeNode:
     def __init__(self, block_id=0, parent_id=0, keys=None, values=None, children=None, n=0):
         self.block_id = block_id
@@ -69,13 +71,8 @@ class BTreeNode:
         # A node is a leaf if all children are zero
         return all(c == 0 for c in self.children)
 
-class IndexFile:
-    def allocate_node(self) -> BTreeNode:
-        node = BTreeNode(block_id=self.next_block_id)
-        self.next_block_id += 1
-        self.write_header()
-        return node
 
+class IndexFile:
     def __init__(self, filename):
         self.filename = filename
         self.file = None
@@ -95,6 +92,27 @@ class IndexFile:
         if self.file:
             self.file.close()
             self.file = None
+
+    def write_header(self):
+        block = bytearray(BLOCK_SIZE)
+        # Magic number
+        block[0:8] = MAGIC_NUMBER
+        # root_id
+        block[8:16] = self.root_id.to_bytes(8, 'big')
+        # next_block_id
+        block[16:24] = self.next_block_id.to_bytes(8, 'big')
+        self.file.seek(0)
+        self.file.write(block)
+
+    def read_header(self):
+        self.file.seek(0)
+        block = self.file.read(BLOCK_SIZE)
+        if len(block) < BLOCK_SIZE:
+            raise IOError("Header block incomplete.")
+        if block[0:8] != MAGIC_NUMBER:
+            raise ValueError("Invalid magic number.")
+        self.root_id = int.from_bytes(block[8:16], 'big')
+        self.next_block_id = int.from_bytes(block[16:24], 'big')
 
     def write_node(self, node: BTreeNode):
         block = node.serialize()
@@ -120,31 +138,57 @@ class IndexFile:
     def is_open(self):
         return self.file is not None
 
-    def write_header(self):
-        block = bytearray(BLOCK_SIZE)
-        # Magic number
-        block[0:8] = MAGIC_NUMBER
-        # root_id
-        block[8:16] = self.root_id.to_bytes(8, 'big')
-        # next_block_id
-        block[16:24] = self.next_block_id.to_bytes(8, 'big')
-        self.file.seek(0)
-        self.file.write(block)
-
-    def read_header(self):
-        self.file.seek(0)
-        block = self.file.read(BLOCK_SIZE)
-        if len(block) < BLOCK_SIZE:
-            raise IOError("Header block incomplete.")
-        if block[0:8] != MAGIC_NUMBER:
-            raise ValueError("Invalid magic number.")
-        self.root_id = int.from_bytes(block[8:16], 'big')
-        self.next_block_id = int.from_bytes(block[16:24], 'big')
 
 class BTree:
-
     def __init__(self, idx_file: IndexFile):
         self.idx_file = idx_file
+
+    def search(self, key: int):
+        if self.idx_file.root_id == 0:
+            return None
+        return self._search_node(self.idx_file.root_id, key)
+
+    def _search_node(self, block_id, key):
+        node = self.idx_file.read_node(block_id)
+        # Binary search 
+        keys = node.keys[:node.n]
+        i = bisect_left(keys, key)
+        if i < node.n and keys[i] == key:
+            return node.values[i]
+        if node.is_leaf():
+            return None
+        else:
+            return self._search_node(node.children[i], key)
+
+    def insert(self, key: int, value: int):
+        # Check for duplicate
+        if self.search(key) is not None:
+            print("Error: key already exists.")
+            return
+        if self.idx_file.root_id == 0:
+            # Tree empty, create root
+            root = self.idx_file.allocate_node()
+            root.n = 1
+            root.keys[0] = key
+            root.values[0] = value
+            self.idx_file.root_id = root.block_id
+            self.idx_file.write_node(root)
+            self.idx_file.sync_header()
+        else:
+            root = self.idx_file.read_node(self.idx_file.root_id)
+            if root.n == MAX_KEYS:
+                # Need a new root
+                new_root = self.idx_file.allocate_node()
+                new_root.children[0] = root.block_id
+                root.parent_id = new_root.block_id
+                self.idx_file.write_node(root)
+                self._split_child(new_root, 0)
+                self._insert_nonfull(new_root, key, value)
+                self.idx_file.root_id = new_root.block_id
+                self.idx_file.write_node(new_root)
+                self.idx_file.sync_header()
+            else:
+                self._insert_nonfull(root, key, value)
 
     def _insert_nonfull(self, node: BTreeNode, key: int, value: int):
         # node guaranteed to have space
@@ -169,30 +213,15 @@ class BTree:
             child = self.idx_file.read_node(child_id)
             if child.n == MAX_KEYS:
                 self._split_child(node, i)
-                # After split, decide which child to go down
+                # After split, decide which child 
                 if key > node.keys[i]:
                     i += 1
                 child_id = node.children[i]
                 child = self.idx_file.read_node(child_id)
             self._insert_nonfull(child, key, value)
 
-    def search(self, key: int):
-        if self.idx_file.root_id == 0:
-            return None
-        return self._search_node(self.idx_file.root_id, key)
-
-    def _search_node(self, block_id, key):
-        node = self.idx_file.read_node(block_id)
-        keys = node.keys[:node.n]
-        i = bisect_left(keys, key)
-        if i < node.n and keys[i] == key:
-            return node.values[i]
-        if node.is_leaf():
-            return None
-        return self._search_node(node.children[i], key)
-    
     def _split_child(self, parent: BTreeNode, i: int):
-        # Split child at index i
+        # Split child 
         parent = self._reload_node(parent)
         full_child_id = parent.children[i]
         full_child = self.idx_file.read_node(full_child_id)
@@ -201,7 +230,7 @@ class BTree:
         new_node.parent_id = parent.block_id
 
         # Move keys and values
-        mid = T-1  # median index (9 for T=10)
+        mid = T-1  
         new_node.n = T - 1  # 9
         for j in range(T-1):
             new_node.keys[j] = full_child.keys[j+T]
@@ -242,38 +271,8 @@ class BTree:
         self.idx_file.write_node(new_node)
         self.idx_file.write_node(parent)
 
-    def insert(self, key: int, value: int):
-        # Check for duplicate
-        if self.search(key) is not None:
-            print("Error: key already exists.")
-            return
-        if self.idx_file.root_id == 0:
-            # Tree empty, create root
-            root = self.idx_file.allocate_node()
-            root.n = 1
-            root.keys[0] = key
-            root.values[0] = value
-            self.idx_file.root_id = root.block_id
-            self.idx_file.write_node(root)
-            self.idx_file.sync_header()
-        else:
-            root = self.idx_file.read_node(self.idx_file.root_id)
-            if root.n == MAX_KEYS:
-                # Need a new root
-                new_root = self.idx_file.allocate_node()
-                new_root.children[0] = root.block_id
-                root.parent_id = new_root.block_id
-                self.idx_file.write_node(root)
-                self._split_child(new_root, 0)
-                self._insert_nonfull(new_root, key, value)
-                self.idx_file.root_id = new_root.block_id
-                self.idx_file.write_node(new_root)
-                self.idx_file.sync_header()
-            else:
-                self._insert_nonfull(root, key, value)
-
     def _reload_node(self, node: BTreeNode) -> BTreeNode:
-        # Re-read node from disk (ensures no stale data)
+        # Re-read node
         return self.idx_file.read_node(node.block_id)
 
     def print_all(self):
@@ -317,6 +316,7 @@ class BTree:
         if node.children[node.n] != 0:
             self._inorder_node(node.children[node.n], pairs)
 
+
 def main():
     idx_file = None
     btree = None
@@ -349,3 +349,82 @@ def main():
             idx_file.next_block_id = 1
             idx_file.write_header()
             btree = BTree(idx_file)
+        elif cmd == "open":
+            fname = input("Enter existing index file name: ").strip()
+            if not os.path.exists(fname):
+                print("Error: file does not exist.")
+                continue
+            if idx_file:
+                idx_file.close()
+            idx_file = IndexFile(fname)
+            try:
+                idx_file.open_readwrite()
+                idx_file.read_header()
+                btree = BTree(idx_file)
+            except Exception as e:
+                print(f"Error: {e}")
+                if idx_file:
+                    idx_file.close()
+                idx_file = None
+                btree = None
+        elif cmd == "insert":
+            if not ensure_open():
+                continue
+            try:
+                k = int(input("Enter key (unsigned int): "))
+                v = int(input("Enter value (unsigned int): "))
+                btree.insert(k,v)
+            except ValueError:
+                print("Invalid input.")
+        elif cmd == "search":
+            if not ensure_open():
+                continue
+            try:
+                k = int(input("Enter key (unsigned int): "))
+                val = btree.search(k)
+                if val is None:
+                    print("Key not found.")
+                else:
+                    print(f"Found key {k}, value {val}")
+            except ValueError:
+                print("Invalid input.")
+        elif cmd == "load":
+            if not ensure_open():
+                continue
+            fname = input("Enter file name: ").strip()
+            if not os.path.exists(fname):
+                print("Error: file does not exist.")
+                continue
+            with open(fname, 'r') as f:
+                for line in f:
+                    line=line.strip()
+                    if not line:
+                        continue
+                    parts = line.split(',')
+                    if len(parts) != 2:
+                        print("Invalid line in load file:", line)
+                        continue
+                    try:
+                        k = int(parts[0])
+                        v = int(parts[1])
+                        if btree.search(k) is not None:
+                            print(f"Error: key {k} already exists, skipping.")
+                        else:
+                            btree.insert(k,v)
+                    except ValueError:
+                        print("Invalid line in load file:", line)
+        elif cmd == "print":
+            if not ensure_open():
+                continue
+            btree.print_all()
+        elif cmd == "extract":
+            if not ensure_open():
+                continue
+            fname = input("Enter output file name: ").strip()
+            btree.extract_all(fname)
+        else:
+            print("Invalid command.")
+
+
+if __name__ == "__main__":
+    main()
